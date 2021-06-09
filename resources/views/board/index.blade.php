@@ -11,26 +11,20 @@
     padding: 5px 30px;
     text-align: center;
   }
-
-  svg.w-5.h-5 {
-    width: 30px;
-    height: 30px;
-  }
 </style>
-@section('title', 'index.blade.php')
+@section('title', 'board.index.blade.php')
 
 @section('content')
 <table>
   <tr>
-    <th><a href="?sort=name">Name</a></th>
-    <th><a href="?sort=age">Age</a></th>
+    <th>Message</th>
+    <th>Name</th>
   </tr>
   @foreach ($items as $item)
   <tr>
-    <td>{{$item->name}}</td>
-    <td>{{$item->age}}</td>
+    <td>{{$item->message}}</td>
+    <td>{{$item->person['name']}}</td>
   </tr>
   @endforeach
 </table>
-{{$items->appends(['sort' => $sort])->links()}}
 @endsection

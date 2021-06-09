@@ -8,26 +8,21 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Person extends Model
 {
+    protected $guarded = array('id');
+    public static $rules = array(
+        'name' => 'required',
+        'age' => 'integer|min:0|max:150',
+    );
     public function getData()
     {
-        $txt = $this->id . ':' . $this->name . '(' . $this->age . ')';
-        return $txt;
+        return $this->id . ':' . $this->name . '(' . $this->age . ')';
     }
-    public function scopeNameEqual($query, $str)
+    public function board()
     {
-        return $query->where('name', $str);
+        return $this->hasOne('App\Board');
     }
-    public function scopeAgeGreaterThan($query, $n)
+    public function boards()
     {
-        return $query->where('age', '>=', $n);
-    }
-    public function scopeAgeLessThan($query, $n)
-    {
-        return $query->where('age', '<=', $n);
-    }
-    protected static function boot()
-    {
-        parent::boot();
-        static::addGlobalScope(new ScopePerson);
+        return $this->hasMany('App\Board');
     }
 }
